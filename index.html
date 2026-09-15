@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Typing Speed Ultimate Pro</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div class="app">
+
+    <!-- HEADER -->
+    <header class="topbar">
+
+      <div class="brand-area">
+        <div class="logo">⌨</div>
+
+        <div>
+          <h1>Typing Speed <span>Ultimate Pro</span></h1>
+          <p>Test your speed. Improve your accuracy.</p>
+        </div>
+      </div>
+
+      <button id="themeBtn" class="icon-button" title="Change theme">
+        ☀
+      </button>
+
+    </header>
+
+
+    <!-- HOME / TEST SCREEN -->
+    <main id="testScreen">
+
+      <!-- SETTINGS -->
+      <section class="settings-card">
+
+        <div class="setting-group">
+          <label>TIME</label>
+
+          <div class="segmented">
+            <button class="time-btn" data-time="15">15s</button>
+            <button class="time-btn active" data-time="30">30s</button>
+            <button class="time-btn" data-time="60">60s</button>
+            <button class="time-btn" data-time="120">120s</button>
+          </div>
+        </div>
+
+
+        <div class="setting-group">
+          <label>DIFFICULTY</label>
+
+          <div class="segmented">
+            <button class="difficulty-btn active" data-difficulty="easy">
+              Easy
+            </button>
+
+            <button class="difficulty-btn" data-difficulty="medium">
+              Medium
+            </button>
+
+            <button class="difficulty-btn" data-difficulty="hard">
+              Hard
+            </button>
+          </div>
+        </div>
+
+
+        <button id="newTestBtn" class="new-test-button">
+          <span>↻</span>
+          New Test
+        </button>
+
+      </section>
+
+
+      <!-- LIVE STATS -->
+      <section class="stats-grid">
+
+        <div class="stat-card">
+          <div class="stat-icon">⚡</div>
+          <div>
+            <span>WPM</span>
+            <strong id="wpm">0</strong>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon">🎯</div>
+          <div>
+            <span>Accuracy</span>
+            <strong id="accuracy">100%</strong>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon">✓</div>
+          <div>
+            <span>Correct</span>
+            <strong id="correctChars">0</strong>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon">✕</div>
+          <div>
+            <span>Mistakes</span>
+            <strong id="mistakes">0</strong>
+          </div>
+        </div>
+
+      </section>
+
+
+      <!-- TIMER -->
+      <section class="timer-area">
+
+        <div class="timer-label">TIME LEFT</div>
+
+        <div id="timer" class="timer">
+          30
+        </div>
+
+        <div class="progress-track">
+          <div id="progressBar" class="progress-bar"></div>
+        </div>
+
+      </section>
+
+
+      <!-- TYPING AREA -->
+      <section class="typing-card">
+
+        <div id="countdownOverlay" class="countdown-overlay hidden">
+          <div id="countdownNumber">3</div>
+          <p>Get ready...</p>
+        </div>
+
+
+        <div class="typing-header">
+
+          <div>
+            <span class="small-label">TYPE THE TEXT BELOW</span>
+          </div>
+
+          <div id="statusText" class="status">
+            Ready
+          </div>
+
+        </div>
+
+
+        <div id="textDisplay" class="text-display"></div>
+
+
+        <textarea
+          id="typingInput"
+          class="typing-input"
+          placeholder="Click here and start typing..."
+          autocomplete="off"
+          autocorrect="off"
+          autocapitalize="off"
+          spellcheck="false"
+          disabled
+        ></textarea>
+
+
+        <div class="typing-actions">
+
+          <button id="startBtn" class="start-button">
+            Start Test
+          </button>
+
+          <button id="restartBtn" class="secondary-button">
+            Restart
+          </button>
+
+        </div>
+
+      </section>
+
+
+      <!-- QUICK TIPS -->
+      <section class="tips-card">
+
+        <div class="tip">
+          <span>⌨</span>
+          <div>
+            <strong>Don't look at the keyboard</strong>
+            <p>Focus on the text and build muscle memory.</p>
+          </div>
+        </div>
+
+        <div class="tip">
+          <span>🎯</span>
+          <div>
+            <strong>Accuracy first</strong>
+            <p>Speed naturally improves when mistakes decrease.</p>
+          </div>
+        </div>
+
+        <div class="tip">
+          <span>⚡</span>
+          <div>
+            <strong>Stay consistent</strong>
+            <p>Practice regularly to improve your WPM.</p>
+          </div>
+        </div>
+
+      </section>
+
+    </main>
+
+
+    <!-- RESULTS SCREEN -->
+    <section id="resultsScreen" class="results-screen hidden">
+
+      <div class="results-card">
+
+        <div class="results-top">
+          <div class="trophy">🏆</div>
+
+          <h2>Test Complete!</h2>
+
+          <p id="resultMessage">
+            Great work!
+          </p>
+        </div>
+
+
+        <div class="big-score">
+
+          <span>Your Speed</span>
+
+          <strong id="finalWpm">
+            0
+          </strong>
+
+          <small>WPM</small>
+
+        </div>
+
+
+        <div class="result-grid">
+
+          <div class="result-stat">
+            <span>Accuracy</span>
+            <strong id="finalAccuracy">0%</strong>
+          </div>
+
+          <div class="result-stat">
+            <span>Correct</span>
+            <strong id="finalCorrect">0</strong>
+          </div>
+
+          <div class="result-stat">
+            <span>Mistakes</span>
+            <strong id="finalMistakes">0</strong>
+          </div>
+
+          <div class="result-stat">
+            <span>Characters</span>
+            <strong id="finalCharacters">0</strong>
+          </div>
+
+        </div>
+
+
+        <div id="newRecord" class="new-record hidden">
+          ⭐ NEW PERSONAL BEST!
+        </div>
+
+
+        <div class="result-actions">
+
+          <button id="tryAgainBtn" class="start-button">
+            Try Again
+          </button>
+
+          <button id="newPassageBtn" class="secondary-button">
+            New Passage
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- HISTORY -->
+      <div class="history-panel">
+
+        <div class="history-header">
+
+          <div>
+            <h3>Test History</h3>
+            <span id="historyCount">
+              0 tests
+            </span>
+          </div>
+
+          <button id="clearHistoryBtn">
+            Clear
+          </button>
+
+        </div>
+
+
+        <div id="historyList" class="history-list">
+
+          <div class="empty-history">
+            No tests completed yet.
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </div>
+
+
+  <!-- TOAST -->
+  <div id="toast" class="toast">
+    Ready
+  </div>
+
+
+  <script src="script.js"></script>
+
+</body>
+</html>
