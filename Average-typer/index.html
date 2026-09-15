@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Average Typer Comparison</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  min-height:100vh;
+  font-family:Arial,Helvetica,sans-serif;
+  color:#fff;
+  background:
+    radial-gradient(circle at 15% 10%,#443cff55,transparent 30%),
+    radial-gradient(circle at 85% 85%,#9b3cff44,transparent 30%),
+    #080b14;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:25px;
+}
+
+.app{
+  width:min(850px,100%);
+}
+
+.card{
+  background:rgba(20,25,42,.9);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:28px;
+  padding:30px;
+  box-shadow:
+    15px 15px 40px #0008,
+    inset 1px 1px 2px #ffffff15;
+  backdrop-filter:blur(20px);
+}
+
+.header{
+  text-align:center;
+  margin-bottom:30px;
+}
+
+.logo{
+  width:65px;
+  height:65px;
+  margin:auto;
+  border-radius:20px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:30px;
+  background:linear-gradient(135deg,#6975ff,#a855f7);
+  box-shadow:0 12px 30px #675fff55;
+}
+
+h1{
+  margin-top:15px;
+  font-size:30px;
+}
+
+.header p{
+  color:#929bb2;
+  margin-top:7px;
+}
+
+.compare{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:15px;
+  margin-bottom:25px;
+}
+
+.speed-box{
+  padding:25px;
+  border-radius:20px;
+  background:#ffffff08;
+  border:1px solid #ffffff0d;
+  text-align:center;
+}
+
+.speed-box span{
+  display:block;
+  color:#929bb2;
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  margin-bottom:10px;
+}
+
+.speed{
+  font-size:50px;
+  font-weight:900;
+}
+
+.speed small{
+  font-size:15px;
+  color:#929bb2;
+}
+
+.user{
+  color:#8c96ff;
+}
+
+.average{
+  color:#a7afbd;
+}
+
+.input-area{
+  display:flex;
+  gap:10px;
+  margin-bottom:25px;
+}
+
+input{
+  flex:1;
+  padding:15px;
+  border-radius:14px;
+  border:1px solid #ffffff14;
+  outline:none;
+  background:#0c101c;
+  color:white;
+  font-size:16px;
+}
+
+button{
+  border:0;
+  border-radius:14px;
+  padding:0 22px;
+  color:white;
+  font-weight:800;
+  cursor:pointer;
+  background:linear-gradient(135deg,#6875ff,#a855f7);
+  box-shadow:0 8px 18px #6570ff33;
+  transition:.15s;
+}
+
+button:hover{
+  transform:translateY(-2px);
+}
+
+button:active{
+  transform:translateY(3px);
+}
+
+.result{
+  text-align:center;
+  padding:25px;
+  border-radius:20px;
+  background:linear-gradient(135deg,#6975ff15,#a855f715);
+  border:1px solid #8b82ff22;
+}
+
+.result-title{
+  color:#929bb2;
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:1px;
+}
+
+#difference{
+  font-size:36px;
+  font-weight:900;
+  margin:8px 0;
+}
+
+#message{
+  color:#c4c9d6;
+}
+
+.bar-section{
+  margin-top:25px;
+}
+
+.bar-label{
+  display:flex;
+  justify-content:space-between;
+  color:#929bb2;
+  font-size:12px;
+  margin-bottom:8px;
+}
+
+.bar{
+  height:18px;
+  border-radius:20px;
+  background:#080b13;
+  overflow:hidden;
+  border:1px solid #ffffff0d;
+}
+
+.fill{
+  height:100%;
+  width:0%;
+  border-radius:inherit;
+  background:linear-gradient(90deg,#6875ff,#a855f7);
+  transition:width .7s ease;
+}
+
+.info{
+  margin-top:22px;
+  text-align:center;
+  color:#737d94;
+  font-size:12px;
+  line-height:1.6;
+}
+
+@media(max-width:600px){
+
+  .card{
+    padding:20px;
+  }
+
+  .compare{
+    grid-template-columns:1fr;
+  }
+
+  .input-area{
+    flex-direction:column;
+  }
+
+  button{
+    height:48px;
+  }
+
+  h1{
+    font-size:25px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+  <div class="card">
+
+    <div class="header">
+
+      <div class="logo">⚡</div>
+
+      <h1>Average Typer</h1>
+
+      <p>See how your typing speed compares.</p>
+
+    </div>
+
+
+    <div class="compare">
+
+      <div class="speed-box">
+
+        <span>Your Speed</span>
+
+        <div class="speed user">
+          <span id="yourSpeed">0</span>
+          <small>WPM</small>
+        </div>
+
+      </div>
+
+
+      <div class="speed-box">
+
+        <span>Average Typer</span>
+
+        <div class="speed average">
+          40
+          <small>WPM</small>
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="input-area">
+
+      <input
+        id="wpmInput"
+        type="number"
+        min="0"
+        max="300"
+        placeholder="Enter your WPM..."
+      >
+
+      <button id="compareBtn">
+        Compare
+      </button>
+
+    </div>
+
+
+    <div class="result">
+
+      <div class="result-title">
+        Your Result
+      </div>
+
+      <div id="difference">
+        —
+      </div>
+
+      <div id="message">
+        Enter your WPM to see your result.
+      </div>
+
+    </div>
+
+
+    <div class="bar-section">
+
+      <div class="bar-label">
+
+        <span>Average Typer</span>
+
+        <span>Your Speed</span>
+
+      </div>
+
+      <div class="bar">
+
+        <div
+          id="speedFill"
+          class="fill"
+        ></div>
+
+      </div>
+
+    </div>
+
+
+    <div class="info">
+
+      The reference speed used here is
+      <strong>40 WPM</strong>.
+      This is a simple comparison benchmark,
+      not a measurement of every typist.
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<script>
+
+const AVERAGE_WPM = 40;
+
+const input =
+  document.getElementById("wpmInput");
+
+const compareBtn =
+  document.getElementById("compareBtn");
+
+const yourSpeed =
+  document.getElementById("yourSpeed");
+
+const difference =
+  document.getElementById("difference");
+
+const message =
+  document.getElementById("message");
+
+const speedFill =
+  document.getElementById("speedFill");
+
+
+function compareSpeed(){
+
+  const wpm =
+    Number(input.value);
+
+  if(
+    !Number.isFinite(wpm) ||
+    wpm < 0
+  ){
+
+    difference.textContent = "—";
+
+    message.textContent =
+      "Enter a valid WPM.";
+
+    speedFill.style.width = "0%";
+
+    return;
+  }
+
+
+  yourSpeed.textContent =
+    Math.round(wpm);
+
+
+  const diff =
+    wpm - AVERAGE_WPM;
+
+
+  const percentage =
+    Math.round(
+      (wpm / AVERAGE_WPM) * 100
+    );
+
+
+  if(wpm === AVERAGE_WPM){
+
+    difference.textContent =
+      "Exactly Average";
+
+    message.textContent =
+      "Your speed is right around the average benchmark.";
+
+  }
+
+  else if(wpm > AVERAGE_WPM){
+
+    difference.textContent =
+      `+${Math.round(diff)} WPM`;
+
+    message.textContent =
+      `You are ${percentage}% of the average benchmark — faster than average!`;
+
+  }
+
+  else{
+
+    difference.textContent =
+      `${Math.round(diff)} WPM`;
+
+    message.textContent =
+      `You are ${percentage}% of the average benchmark. Keep practicing!`;
+
+  }
+
+
+  const barPercent =
+    Math.min(
+      (wpm / 100) * 100,
+      100
+    );
+
+  speedFill.style.width =
+    `${barPercent}%`;
+
+}
+
+
+/*
+  Try to automatically read the
+  personal best from Typing Speed Pro.
+*/
+
+const savedBest =
+  Number(
+    localStorage.getItem(
+      "typingPersonalBest"
+    ) || 0
+  );
+
+
+if(savedBest > 0){
+
+  input.value =
+    savedBest;
+
+  compareSpeed();
+
+}
+
+
+compareBtn.addEventListener(
+  "click",
+  compareSpeed
+);
+
+
+input.addEventListener(
+  "keydown",
+  function(event){
+
+    if(event.key === "Enter"){
+
+      compareSpeed();
+
+    }
+
+  }
+);
+
+</script>
+
+</body>
+</html>
+```
