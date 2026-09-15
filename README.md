@@ -1,0 +1,2 @@
+# Ty
+Typing Speed Tester
